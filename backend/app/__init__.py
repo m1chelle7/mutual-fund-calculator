@@ -1,4 +1,4 @@
-from flask import flask
+from flask import Flask
 from app.controllers.mutualfunds_controller import mutualfunds_api
 
 def create_app():
