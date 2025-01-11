@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from app.models.mutualfund_model import get_mutual_funds
 from app.services.external_api_service import get_beta_for_mutual_fund, get_sp500_historical_data
-from app.services.future_value_service import calculate_future_value
+from app.services.future_value_service import calculate_future_value, calculate_market_return_rate
 
 mutualfunds_api = Blueprint("mutualfunds_api", __name__)
 
@@ -34,7 +34,7 @@ def get_beta():
 
 @mutualfunds_api.route("/market-return-rate", methods=["GET"])
 def get_market_return_rate():
-    return jsonify(get_sp500_historical_data())
+    return jsonify(calculate_market_return_rate())
 
 @mutualfunds_api.route("/investment/future-value", methods=["GET"])
 def future_value():

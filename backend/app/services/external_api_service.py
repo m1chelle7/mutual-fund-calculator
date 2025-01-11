@@ -49,19 +49,8 @@ def get_sp500_historical_data():
             """NOTE: Precaution"""
             if len(filtered_data) == 0:
                 return f"No data available for {previous_year}"
-                
 
-            start_value = float(filtered_data[0]["value"])
-            end_value = float(filtered_data[-1]["value"])
-
-            """TODO: Turn this into a percentage or leave as it is?"""
-            market_return_rate = (end_value - start_value) / start_value
-
-            return {
-                "start_value": start_value,
-                "end_value": end_value,
-                "market_return_rate": round(market_return_rate, 4),
-            }
+            return filtered_data
 
         else:
             print(f"Failed to fetch S&P 500 data, response: {data}")

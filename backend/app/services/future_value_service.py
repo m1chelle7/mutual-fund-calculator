@@ -4,17 +4,17 @@ from app.services.external_api_service import (
 )
 from math import exp
 
-"""NOTE: I think this is the correct risk free rate. If wrong, please correct"""
 RISK_FREE_RATE = 0.0467
 
 
 def calculate_market_return_rate():
     sp500_data = get_sp500_historical_data()
     if sp500_data:
-        """TODO: Correct access considering format?"""
-        first_day_value = float(sp500_data[0]["value"])
-        last_day_value = float(sp500_data[-1]["value"])
-        return (last_day_value - first_day_value) / first_day_value
+        start_value = float(sp500_data[0]["value"])
+        end_value = float(sp500_data[-1]["value"])
+        market_return_rate = (end_value - start_value) / start_value
+        return round(market_return_rate, 8)
+
     print("S&P 500 data is not available.")
     return 0
 
