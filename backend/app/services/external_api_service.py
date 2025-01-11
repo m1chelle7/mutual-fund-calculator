@@ -5,15 +5,28 @@ NEWTON_ANALYTICS_URL = "https://api.newtonanalytics.com/stock-beta/?ticker={tick
 
 def get_beta_for_mutual_fund(ticker):
     try:
-        response = requests.get(NEWTON_ANALYTICS_URL.format(ticker=ticker))
-        data = response.json()
+        url = NEWTON_ANALYTICS_URL.format(ticker=ticker)
+        print(f"Requesting URL: {url}")  
         
-        if response.status_code == 200 and 'beta' in data:
-            return data['beta']
+        response = requests.get(url)
+        
+        print(f"Response Status Code: {response.status_code}")
+        print(f"Response Text: {response.text}")
+        
+        if response.status_code == 200:
+            data = response.json()
+            print(f"Response JSON: {data}")
+            
+            if 'data' in data:
+                return data['data']
+            else:
+                print(f"Beta not found in the response data for ticker {ticker}")
         else:
-            print(f"Failed to fetch beta for {ticker}, response: {data}")
+            print(f"Failed to fetch beta for {ticker}. HTTP Status Code: {response.status_code}")
+    
     except Exception as e:
         print(f"Error fetching beta: {e}")
+    
     return None
 
 # def get_sp500_historical_data():
