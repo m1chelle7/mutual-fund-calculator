@@ -1,0 +1,1 @@
+Go to backend folder and type "python app.py" to run.
