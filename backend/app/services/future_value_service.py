@@ -29,5 +29,4 @@ def calculate_future_value(ticker, initial_investment, investment_time):
     rate = RISK_FREE_RATE + beta * (market_return_rate - RISK_FREE_RATE)
     future_value = initial_investment * exp(rate * investment_time)
 
-    """TODO: Check if this is accurate enough"""
-    return round(future_value, 2)
+    return round(future_value, 4)
