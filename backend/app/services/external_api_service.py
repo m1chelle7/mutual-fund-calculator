@@ -46,7 +46,6 @@ def get_sp500_historical_data():
                 if start_date <= obs["date"] <= end_date and obs["value"] != "."
             ]
 
-            """NOTE: Precaution"""
             if len(filtered_data) == 0:
                 return f"No data available for {previous_year}"
 
