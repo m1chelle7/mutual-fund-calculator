@@ -9,6 +9,7 @@ RISK_FREE_RATE = 0.0467
 
 def calculate_market_return_rate():
     sp500_data = get_sp500_historical_data()
+
     if sp500_data:
         start_value = float(sp500_data[0]["value"])
         end_value = float(sp500_data[-1]["value"])
@@ -26,6 +27,10 @@ def calculate_future_value(ticker, initial_investment, investment_time):
         return {"error": "Beta not found for the given mutual fund ticker"}
 
     market_return_rate = calculate_market_return_rate()
+
+    if not market_return_rate:
+        return {"error": "Market return rate not found"}
+    
     rate = RISK_FREE_RATE + beta * (market_return_rate - RISK_FREE_RATE)
     future_value = initial_investment * exp(rate * investment_time)
 
