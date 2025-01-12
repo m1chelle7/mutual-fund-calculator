@@ -1,13 +1,16 @@
-// src/App.js
 import React from 'react';
-import MutualFunds from './components/MutualFunds';  // Import the MutualFunds component
+import Header from './components/header/Header'; 
+import MutualFunds from './components/MutualFundTicker'; 
 
-function App() {
+import './styles/App.css';
+
+const App = () => {
   return (
     <div>
-      <MutualFunds />  {/* Render the MutualFunds component */}
+      <Header /> 
+      <MutualFunds />  
     </div>
   );
-}
+};
 
 export default App;
