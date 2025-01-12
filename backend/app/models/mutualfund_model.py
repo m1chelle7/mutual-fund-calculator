@@ -5,7 +5,7 @@ mutual_funds = [
     {"ticker": "FXAIX", "name": "Fidelity 500 Index Fund"},
     {"ticker": "VFIAX", "name": "Vanguard 500 Index Fund"},
     {"ticker": "VTSAX", "name": "Vanguard Total Stock Market Index Fund"},
-    {"ticker": "SPAXX", "name": "SPDR S&P 500 ETF Trust"},
+    {"ticker": "FGTXX", "name": "Goldman Sachs FS Governemnt Institutional Shares"},
 ]
 
 
