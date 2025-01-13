@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 const MutualFunds = () => {
   const [mutualFunds, setMutualFunds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedFund, setSelectedFund] = useState('');
+  const [selectedFund, setSelectedFund] = useState("");
 
   useEffect(() => {
     const fetchMutualFunds = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5000/api/mutual-funds');
+        const response = await fetch("http://127.0.0.1:5000/api/mutual-funds");
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
         }
         const data = await response.json();
         setMutualFunds(data);
       } catch (error) {
-        setError('Error fetching mutual funds');
+        setError("Error fetching mutual funds");
       } finally {
         setLoading(false);
       }
     };
 
     fetchMutualFunds();
-  }, []); 
+  }, []);
 
   const handleChange = (event) => {
     setSelectedFund(event.target.value);
@@ -41,10 +41,10 @@ const MutualFunds = () => {
     <div>
       <h1>Mutual Funds</h1>
 
-      <select 
-        value={selectedFund} 
+      <select
+        value={selectedFund}
         onChange={handleChange}
-        disabled={mutualFunds.length === 0} 
+        disabled={mutualFunds.length === 0}
       >
         <option value="">Select a Mutual Fund</option>
         {mutualFunds.map((fund) => (
@@ -57,7 +57,9 @@ const MutualFunds = () => {
       {selectedFund && (
         <div>
           <h2>Selected Fund:</h2>
-          <p>{mutualFunds.find(fund => fund.ticker === selectedFund)?.name}</p>
+          <p>
+            {mutualFunds.find((fund) => fund.ticker === selectedFund)?.name}
+          </p>
           <p>{selectedFund}</p>
         </div>
       )}
