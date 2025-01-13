@@ -50,7 +50,7 @@ def test_get_beta_not_found(mock_get_beta, app):
         assert "Beta not found for ticker VFIAX" in response.json["error"]
 
 #Check getting market return rate
-@patch("app.services.future_value_service.calculare_market_return_rate")
+@patch("app.services.future_value_service.calculate_market_return_rate")
 def test_get_market_return_rate(mock_calculate_rate, app):
     mock_calculate_rate.return_value = 0.07
 
@@ -66,7 +66,7 @@ def test_future_value(mock_calculate_value, app):
 
     with app.test_client() as client:
         response = client.get("/investment/future-value?ticker=VFIAX&initialInvestment=1000&investmentTime=5")
-        assert response.status.code == 200
+        assert response.status_code == 200
         assert response.json["future_value"] == 1500
 
 #Check for missing parameters
