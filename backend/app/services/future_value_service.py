@@ -1,4 +1,4 @@
-from app.services.external_api_service import (
+from backend.app.services.external_api_service import (
     get_beta_for_mutual_fund,
     get_sp500_historical_data,
 )
