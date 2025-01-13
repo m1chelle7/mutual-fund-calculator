@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const MutualFunds = () => {
+const MutualFunds = ({ onSelectFund }) => {
   const [mutualFunds, setMutualFunds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -26,7 +26,9 @@ const MutualFunds = () => {
   }, []);
 
   const handleChange = (event) => {
-    setSelectedFund(event.target.value);
+    const selected = event.target.value;
+    setSelectedFund(selected); 
+    onSelectFund(selected);
   };
 
   if (loading) {
@@ -40,7 +42,6 @@ const MutualFunds = () => {
   return (
     <div>
       <h1>Mutual Funds</h1>
-
       <select
         value={selectedFund}
         onChange={handleChange}
@@ -57,9 +58,7 @@ const MutualFunds = () => {
       {selectedFund && (
         <div>
           <h2>Selected Fund:</h2>
-          <p>
-            {mutualFunds.find((fund) => fund.ticker === selectedFund)?.name}
-          </p>
+          <p>{mutualFunds.find((fund) => fund.ticker === selectedFund)?.name}</p>
           <p>{selectedFund}</p>
         </div>
       )}
