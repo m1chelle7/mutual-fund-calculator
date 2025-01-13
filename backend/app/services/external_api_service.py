@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 
 NEWTON_ANALYTICS_URL = "https://api.newtonanalytics.com/stock-beta/?ticker={ticker}&index=^GSPC&interval=1mo&observations=12"
 SP500_API_URL = "https://api.stlouisfed.org/fred/series/observations?series_id=SP500&api_key=d26079fc190512773ac705629a92f8ea&file_type=json"
@@ -31,11 +32,28 @@ def get_sp500_historical_data():
     try:
         response = requests.get(SP500_API_URL)
         data = response.json()
-        """TODO: Don't know what attribute we need yet. Change later, this causes an error right now."""
+
         if response.status_code == 200 and "observations" in data:
-            return data["observations"]
+            current_year = datetime.now().year
+            previous_year = current_year - 1
+
+            start_date = f"{previous_year}-01-01"
+            end_date = f"{previous_year}-12-31"
+
+            filtered_data = [
+                obs
+                for obs in data["observations"]
+                if start_date <= obs["date"] <= end_date and obs["value"] != "."
+            ]
+
+            if len(filtered_data) == 0:
+                return f"No data available for {previous_year}"
+
+            return filtered_data
+
         else:
             print(f"Failed to fetch S&P 500 data, response: {data}")
+
     except Exception as e:
         print(f"Error fetching S&P 500 data: {e}")
     return None
