@@ -23,7 +23,7 @@ const MutualFunds = () => {
     };
 
     fetchMutualFunds();
-  }, []); 
+  }, []);
 
   const handleChange = (event) => {
     setSelectedFund(event.target.value);
@@ -41,10 +41,10 @@ const MutualFunds = () => {
     <div>
       <h1>Mutual Funds</h1>
 
-      <select 
-        value={selectedFund} 
+      <select
+        value={selectedFund}
         onChange={handleChange}
-        disabled={mutualFunds.length === 0} 
+        disabled={mutualFunds.length === 0}
       >
         <option value="">Select a Mutual Fund</option>
         {mutualFunds.map((fund) => (

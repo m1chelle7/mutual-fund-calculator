@@ -1,14 +1,15 @@
 import React from 'react';
-import Header from './components/header/Header'; 
-import MutualFunds from './components/MutualFundTicker'; 
+import Header from './components/header/Header';
+import MutualFunds from './components/MutualFundTicker';
+import HeroSection from './components/HeroSection';
 
-import './styles/App.css';
 
 const App = () => {
   return (
     <div>
-      <Header /> 
-      <MutualFunds />  
+      <Header />
+      <HeroSection />
+      <MutualFunds />
     </div>
   );
 };

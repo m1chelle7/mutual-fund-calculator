@@ -11,5 +11,243 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+body, html {
+  pointer-events: auto;
+  overflow: visible;
+}
 
+/* General Body Styling */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ffffff; /* Light mode background */
+  color: #000000; /* Light mode text */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark Mode */
+body.dark {
+  background-color: #121212; /* Dark mode background */
+  color: #f5f5f5; /* Dark mode text */
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffff; /* Light mode background */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark .header {
+  background-color: #1e1e1e; /* Dark mode background */
+  box-shadow: 0px 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+/* Logo */
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #28a745;
+}
+
+/* Header Controls */
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Input Field */
+.search-input {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 200px;
+  background-color: #ffffff; /* Light mode */
+  color: #000000; /* Light mode text */
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body.dark .search-input {
+  background-color: #333; /* Dark mode background */
+  color: #f5f5f5; /* Dark mode text */
+  border: 1px solid #555; /* Darker border for dark mode */
+}
+
+/* Input Focus State */
+.search-input:focus {
+  border-color: #28a745; /* Green focus border */
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
+}
+
+/* Buttons */
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Login Button */
+button.login {
+  background-color: #f1f1f1;
+  color: #000000;
+}
+
+body.dark button.login {
+  background-color: #333; /* Dark mode background */
+  color: #f5f5f5; /* Dark mode text */
+}
+
+/* Register Button */
+button.register {
+  background-color: #28a745;
+  color: #ffffff;
+}
+
+body.dark button.register {
+  background-color: #1e7e34; /* Darker green for dark mode */
+  color: #ffffff;
+}
+
+/* Dark Mode Toggle Button */
+button.dark-mode-toggle {
+  background-color: transparent;
+  font-size: 1.2rem;
+  color: #000000; /* Light mode icon */
+}
+
+body.dark button.dark-mode-toggle {
+  color: #f5f5f5; /* Dark mode icon */
+}
+
+/* Hover States for Buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+/* Hero Section */
+.hero {
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero h1,
+.hero p {
+  position: relative;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+}
+
+/* Main Content */
+.main-content {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.main-content input,
+.main-content select,
+.main-content button {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.main-content button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.main-content button:hover {
+  background-color: #218838;
+}
+
+/* Results Section */
+.results {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.results h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.results .graph-placeholder {
+  height: 200px;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .main-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero {
+    height: 200px;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+}
 
