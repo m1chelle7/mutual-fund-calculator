@@ -11,6 +11,7 @@ mutualfunds_api = Blueprint("mutualfunds_api", __name__)
 
 
 @mutualfunds_api.route("/mutual-funds", methods=["GET"])
+@cross_origin(origins="http://localhost:3000")
 def get_mutualfunds():
     return jsonify(get_mutual_funds())
 
@@ -43,31 +44,53 @@ def get_market_return_rate():
 
 
 @mutualfunds_api.route("/investment/future-value", methods=["POST"])
-@cross_origin(origins=["http://localhost:3000"])  
 def future_value():
-    data = request.get_json() 
+    data = request.get_json()
     ticker = data.get("mutualFund")
     initial_investment = data.get("initialInvestment")
-    investment_duration = data.get("investmentDuration")
+    investment_time = data.get("investmentDuration")
+
+    if not ticker or not initial_investment or not investment_time:
+        return (
+            jsonify(
+                {
+                    "error": "Please provide all required fields: mutualFund, initialInvestment, investmentDuration"
+                }
+            ),
+            400,
+        )
 
     try:
         initial_investment = float(initial_investment)
-        investment_duration = int(investment_duration)
+        investment_time = int(investment_time)
     except ValueError:
-        return jsonify({"error": "Invalid input for initialInvestment or investmentDuration"}), 400
+        return (
+            jsonify(
+                {
+                    "error": "Invalid data type for initialInvestment or investmentDuration"
+                }
+            ),
+            400,
+        )
 
-    if not ticker or not initial_investment or not investment_duration:
-        return jsonify({
-            "error": "Please provide all required parameters: mutualFund, initialInvestment, investmentDuration"
-        }), 400
+    try:
+        future_value_result = calculate_future_value(
+            ticker, initial_investment, investment_time
+        )
 
-    future_value_result = calculate_future_value(
-        ticker, initial_investment, investment_duration
+        if future_value_result is None or not isinstance(
+            future_value_result, (int, float)
+        ):
+            raise ValueError("Invalid future value result")
+
+    except Exception as e:
+        return jsonify({"error": "Error calculating future value"}), 500
+
+    return jsonify(
+        {
+            "ticker": ticker,
+            "initial_investment": initial_investment,
+            "investment_time": investment_time,
+            "future_value": future_value_result,
+        }
     )
-
-    return jsonify({
-        "ticker": ticker,
-        "initial_investment": initial_investment,
-        "investment_duration": investment_duration,
-        "future_value": future_value_result,
-    })
