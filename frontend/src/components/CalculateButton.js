@@ -8,9 +8,6 @@ const CalculateButton = ({
   setResponseMessage,
 }) => {
   const validateForm = () => {
-    console.log("Initial Investment:", initialInvestment);
-    console.log("Investment Duration:", investmentDuration);
-    console.log("Selected Fund:", selectedFund);
 
     if (!initialInvestment || !investmentDuration || !selectedFund) {
       setErrorMessage(
@@ -34,8 +31,7 @@ const CalculateButton = ({
       initialInvestment: parseFloat(initialInvestment), 
       investmentDuration: parseInt(investmentDuration, 10),
     };
-
-    console.log("Sending data:", formattedData);
+    
     try {
       const response = await fetch("http://127.0.0.1:5000/api/investment/future-value", {
         method: "POST", 
