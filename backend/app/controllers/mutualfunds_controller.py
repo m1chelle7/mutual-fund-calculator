@@ -50,7 +50,7 @@ def future_value():
     initial_investment = data.get("initialInvestment")
     investment_time = data.get("investmentDuration")
 
-    if not ticker or not initial_investment or not investment_time:
+    if ticker is None or initial_investment is None or investment_time:
         return (
             jsonify(
                 {
