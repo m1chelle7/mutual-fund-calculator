@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { fetchMutualFunds } from "../services/mutual_funds_api"; 
 
 const MutualFunds = ({ onSelectFund }) => {
   const [mutualFunds, setMutualFunds] = useState([]);
@@ -7,13 +8,9 @@ const MutualFunds = ({ onSelectFund }) => {
   const [selectedFund, setSelectedFund] = useState("");
 
   useEffect(() => {
-    const fetchMutualFunds = async () => {
+    const getMutualFunds = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/api/mutual-funds");
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
+        const data = await fetchMutualFunds();
         setMutualFunds(data);
       } catch (error) {
         setError("Error fetching mutual funds.");
@@ -22,7 +19,7 @@ const MutualFunds = ({ onSelectFund }) => {
       }
     };
 
-    fetchMutualFunds();
+    getMutualFunds();
   }, []);
 
   const handleChange = (event) => {

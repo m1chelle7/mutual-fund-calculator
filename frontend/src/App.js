@@ -4,7 +4,7 @@ import MutualFunds from "./components/MutualFundTicker";
 import InitialInvestmentInput from "./components/InitialInvestmentInput";
 import InvestmentDurationInput from "./components/InvestmentDurationInput";
 import CalculateButton from "./components/CalculateButton";
-import { getFutureValue } from "./services/api";
+import { getFutureValue } from "./services/future_value_api";
 import "./styles/App.css";
 
 const App = () => {

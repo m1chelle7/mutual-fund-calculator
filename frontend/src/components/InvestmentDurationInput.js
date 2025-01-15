@@ -3,7 +3,9 @@ import React from "react";
 const InvestmentDurationInput = ({ onChange }) => {
   const handleChange = (event) => {
     const value = Number(event.target.value);
-    onChange(value);
+    if (value >= 1) {
+      onChange(value);
+    }
   };
 
   return (
