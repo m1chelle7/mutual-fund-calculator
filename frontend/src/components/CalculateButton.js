@@ -1,7 +1,7 @@
 import React from "react";
 
-const CalculateButton = () => {
-  return <button type="submit">Calculate Future Value</button>;
+const CalculateButton = ({ handleSubmit }) => {
+  return <button type="submit" onClick={handleSubmit}>Calculate Future Value</button>;
 };
 
 export default CalculateButton;

@@ -4,12 +4,12 @@ import MutualFunds from "./components/MutualFundTicker";
 import InitialInvestmentInput from "./components/InitialInvestmentInput";
 import InvestmentDurationInput from "./components/InvestmentDurationInput";
 import CalculateButton from "./components/CalculateButton";
-import { getFutureValue } from "./services/api"
+import { getFutureValue } from "./services/api";
 import "./styles/App.css";
 
 const App = () => {
-  const [initialInvestment, setInitialInvestment] = useState(0);
-  const [investmentDuration, setInvestmentDuration] = useState(0);
+  const [initialInvestment, setInitialInvestment] = useState("");
+const [investmentDuration, setInvestmentDuration] = useState("");
   const [selectedFund, setSelectedFund] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
@@ -25,24 +25,29 @@ const App = () => {
   const handleFundSelectionChange = (fund) => {
     setSelectedFund(fund);
   };
+  
+  const validateForm = () => {
+    if (initialInvestment === "" || investmentDuration === "" || selectedFund === "") {
+      setErrorMessage("Please fill in all required fields.");
+      return false;
+    }
+    setErrorMessage(""); 
+    return true;
+  };
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (!initialInvestment || !investmentDuration || !selectedFund) {
-      setErrorMessage("Please fill in all required fields.");
+    if (!validateForm()) {
       return;
     }
 
-    setErrorMessage("");
-
     const formattedData = {
       mutualFund: selectedFund,
-      initialInvestment: initialInvestment, 
-      investmentDuration: investmentDuration, 
+      initialInvestment: initialInvestment === "" ? 0 : Number(initialInvestment), 
+      investmentDuration: investmentDuration === "" ? 0 : Number(investmentDuration), 
     };
-
-    console.log(formattedData);
 
     try {
       const result = await getFutureValue(formattedData);
@@ -61,7 +66,7 @@ const App = () => {
         <MutualFunds onSelectFund={handleFundSelectionChange} />
         {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
 
-        <CalculateButton />
+        <CalculateButton handleSubmit={handleSubmit} />
       </form>
 
       {responseMessage && <div>{responseMessage}</div>}

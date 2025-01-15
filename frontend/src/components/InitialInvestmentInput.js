@@ -2,7 +2,10 @@ import React from "react";
 
 const InitialInvestmentInput = ({ onChange }) => {
   const handleChange = (event) => {
-    onChange(event.target.value);
+    const value = Number(event.target.value); 
+    if (value >= 0) { 
+      onChange(value);
+    }
   };
 
   return (
@@ -13,6 +16,7 @@ const InitialInvestmentInput = ({ onChange }) => {
           type="number"
           placeholder="Enter amount"
           onChange={handleChange}
+          min="0"
         />
       </label>
     </div>

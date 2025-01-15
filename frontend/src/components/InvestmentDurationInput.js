@@ -13,6 +13,7 @@ const InvestmentDurationInput = ({ onChange }) => {
           type="number"
           placeholder="Enter duration"
           onChange={handleChange}
+          min="1"
         />
       </label>
     </div>
