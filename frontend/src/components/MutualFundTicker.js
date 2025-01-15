@@ -16,7 +16,7 @@ const MutualFunds = ({ onSelectFund }) => {
         const data = await response.json();
         setMutualFunds(data);
       } catch (error) {
-        setError("Error fetching mutual funds");
+        setError("Error fetching mutual funds.");
       } finally {
         setLoading(false);
       }
@@ -27,7 +27,7 @@ const MutualFunds = ({ onSelectFund }) => {
 
   const handleChange = (event) => {
     const selected = event.target.value;
-    setSelectedFund(selected); 
+    setSelectedFund(selected);
     onSelectFund(selected);
   };
 
@@ -37,6 +37,10 @@ const MutualFunds = ({ onSelectFund }) => {
 
   if (error) {
     return <div>{error}</div>;
+  }
+
+  if (mutualFunds.length === 0) {
+    return <div>No mutual funds available.</div>;
   }
 
   return (
@@ -58,7 +62,9 @@ const MutualFunds = ({ onSelectFund }) => {
       {selectedFund && (
         <div>
           <h2>Selected Fund:</h2>
-          <p>{mutualFunds.find((fund) => fund.ticker === selectedFund)?.name}</p>
+          <p>
+            {mutualFunds.find((fund) => fund.ticker === selectedFund)?.name}
+          </p>
           <p>{selectedFund}</p>
         </div>
       )}

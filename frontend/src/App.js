@@ -9,32 +9,36 @@ import "./styles/App.css";
 
 const App = () => {
   const [initialInvestment, setInitialInvestment] = useState("");
-const [investmentDuration, setInvestmentDuration] = useState("");
+  const [investmentDuration, setInvestmentDuration] = useState("");
   const [selectedFund, setSelectedFund] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
 
   const handleInvestmentChange = (value) => {
-    setInitialInvestment(Number(value));
+    setInitialInvestment(value);
   };
 
   const handleDurationChange = (value) => {
-    setInvestmentDuration(Number(value));
+    setInvestmentDuration(value);
   };
 
   const handleFundSelectionChange = (fund) => {
     setSelectedFund(fund);
   };
-  
+
   const validateForm = () => {
-    if (initialInvestment === "" || investmentDuration === "" || selectedFund === "") {
+    if (
+      initialInvestment === "" ||
+      investmentDuration === "" ||
+      selectedFund === ""
+    ) {
       setErrorMessage("Please fill in all required fields.");
       return false;
     }
-    setErrorMessage(""); 
+
+    setErrorMessage("");
     return true;
   };
-  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,8 +49,10 @@ const [investmentDuration, setInvestmentDuration] = useState("");
 
     const formattedData = {
       mutualFund: selectedFund,
-      initialInvestment: initialInvestment === "" ? 0 : Number(initialInvestment), 
-      investmentDuration: investmentDuration === "" ? 0 : Number(investmentDuration), 
+      initialInvestment:
+        initialInvestment === "" ? 0 : Number(initialInvestment),
+      investmentDuration:
+        investmentDuration === "" ? 0 : Number(investmentDuration),
     };
 
     try {
@@ -66,7 +72,7 @@ const [investmentDuration, setInvestmentDuration] = useState("");
         <MutualFunds onSelectFund={handleFundSelectionChange} />
         {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
 
-        <CalculateButton handleSubmit={handleSubmit} />
+        <CalculateButton />
       </form>
 
       {responseMessage && <div>{responseMessage}</div>}
