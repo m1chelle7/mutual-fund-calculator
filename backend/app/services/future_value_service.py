@@ -13,6 +13,7 @@ def calculate_market_return_rate():
     if sp500_data:
         start_value = float(sp500_data[0]["value"])
         end_value = float(sp500_data[-1]["value"])
+        """TODO: What if start_value is 0"""
         market_return_rate = (end_value - start_value) / start_value
         return round(market_return_rate, 8)
 
@@ -30,7 +31,7 @@ def calculate_future_value(ticker, initial_investment, investment_time):
 
     if not market_return_rate:
         return {"error": "Market return rate not found"}
-    
+
     rate = RISK_FREE_RATE + beta * (market_return_rate - RISK_FREE_RATE)
     future_value = initial_investment * exp(rate * investment_time)
 
