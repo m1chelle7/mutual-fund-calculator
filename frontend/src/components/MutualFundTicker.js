@@ -47,13 +47,17 @@ const MutualFunds = ({ onSelectFund }) => {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold mb-4">Mutual Funds</h1>
-
+      <label
+        htmlFor="mutual-fund"
+        className="block text-gray-700 dark:text-gray-300 font-semibold mb-2"
+      >
+        Mutual Fund:
+      </label>
       <div className="relative inline-block text-left">
         <div>
           <button
             type="button"
-            className="inline-flex w-full justify-between gap-x-1.5 rounded-md bg-white px-4 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            className="inline-flex w-full justify-between gap-x-1.5 rounded-md bg-white dark:bg-gray-700 text-sm font-semibold text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600"
             onClick={toggleDropdown}
             aria-expanded={isOpen}
             aria-haspopup="true"
@@ -62,7 +66,7 @@ const MutualFunds = ({ onSelectFund }) => {
               ? mutualFunds.find((fund) => fund.ticker === selectedFund)?.name
               : "Select a Mutual Fund"}
             <svg
-              className={`-mr-1 h-5 w-5 text-gray-400 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+              className={`-mr-1 h-5 w-5 text-gray-400 dark:text-gray-500 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
               fill="currentColor"
               viewBox="0 0 20 20"
               aria-hidden="true"
@@ -78,7 +82,7 @@ const MutualFunds = ({ onSelectFund }) => {
 
         {isOpen && (
           <div
-            className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none"
+            className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black/5 focus:outline-none"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="menu-button"
@@ -88,7 +92,7 @@ const MutualFunds = ({ onSelectFund }) => {
                 <button
                   key={fund.ticker}
                   onClick={() => handleSelectFund(fund)}
-                  className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left"
+                  className="block w-full px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 text-left"
                   role="menuitem"
                 >
                   {fund.name} ({fund.ticker})
@@ -99,15 +103,15 @@ const MutualFunds = ({ onSelectFund }) => {
         )}
       </div>
 
-      {selectedFund && (
-        <div className="mt-4">
+      {/* {selectedFund && (
+        <div className="mt-4 text-gray-700 dark:text-gray-300">
           <h2 className="text-lg font-medium">Selected Fund:</h2>
           <p>
             {mutualFunds.find((fund) => fund.ticker === selectedFund)?.name}
           </p>
           <p>{selectedFund}</p>
         </div>
-      )}
+      )} */}
     </div>
   );
 };
