@@ -1,10 +1,28 @@
-import React from 'react';
-import './Header.css'; 
+import React, { useState } from 'react';
 
 const Header = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    if (isDarkMode) {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
+  };
+
   return (
-    <header className="header">
-      <h1>Mutual Fund Calculator</h1>
+    <header className={`flex justify-between items-center p-4 bg-green-600 dark:bg-gray-800 text-white`}>
+      <div className="flex items-center space-x-2">
+        <span className="font-semibold text-lg">Goldman Sachs ELS</span>
+      </div>
+      <h1 className="text-2xl font-semibold">Mutual Fund Calculator</h1>
+      <button 
+        onClick={toggleDarkMode}
+        className="bg-gray-300 dark:bg-gray-700 rounded-full p-2 text-sm font-medium">
+        {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+      </button>
     </header>
   );
 };

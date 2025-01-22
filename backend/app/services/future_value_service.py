@@ -32,7 +32,8 @@ def calculate_future_value(ticker, initial_investment, investment_time):
     if not market_return_rate:
         return {"error": "Market return rate not found"}
 
+    """TODO: Check beta"""
     rate = RISK_FREE_RATE + beta * (market_return_rate - RISK_FREE_RATE)
+    print(f'Beta: {beta} Market Return Rate: {market_return_rate}')
     future_value = initial_investment * exp(rate * investment_time)
-
     return round(future_value, 4)

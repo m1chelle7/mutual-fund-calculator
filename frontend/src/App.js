@@ -64,18 +64,34 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100 py-8 px-4">
       <Header />
-      <form onSubmit={handleSubmit}>
-        <InitialInvestmentInput onChange={handleInvestmentChange} />
-        <InvestmentDurationInput onChange={handleDurationChange} />
-        <MutualFunds onSelectFund={handleFundSelectionChange} />
-        {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
+      <div className="flex justify-between max-w-screen-xl mx-auto">
+        <div className="w-1/2 bg-white p-6 rounded-lg shadow-lg mr-6">
+          <form onSubmit={handleSubmit}>
+            <InitialInvestmentInput onChange={handleInvestmentChange} />
+            <InvestmentDurationInput onChange={handleDurationChange} />
+            <MutualFunds onSelectFund={handleFundSelectionChange} />
+            
+            {errorMessage && (
+              <div className="text-red-600 text-sm mt-2">{errorMessage}</div>
+            )}
 
-        <CalculateButton />
-      </form>
+            <div className="mt-4">
+              <CalculateButton />
+            </div>
+          </form>
+        </div>
 
-      {responseMessage && <div>{responseMessage}</div>}
+        <div className="w-1/2 bg-white p-6 rounded-lg shadow-lg">
+          {responseMessage && (
+            <div className="text-green-600 text-lg">
+              <h2 className="font-semibold mb-2">Calculation Result</h2>
+              <p>{responseMessage}</p>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
