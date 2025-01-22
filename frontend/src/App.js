@@ -19,6 +19,7 @@ const App = () => {
   };
 
   const handleDurationChange = (value) => {
+    console.log(`Value = ${value}`);
     setInvestmentDuration(value);
   };
 
@@ -27,6 +28,7 @@ const App = () => {
   };
 
   const validateForm = () => {
+    console.log(investmentDuration)
     if (
       initialInvestment === "" ||
       investmentDuration === "" ||
