@@ -1,3 +1,4 @@
+
 from app.models.mutualfund_model import get_mutual_funds
 
 def test_get_mutual_funds():
