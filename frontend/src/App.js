@@ -19,7 +19,6 @@ const App = () => {
   };
 
   const handleDurationChange = (value) => {
-    console.log(`Value = ${value}`);
     setInvestmentDuration(value);
   };
 
@@ -28,7 +27,7 @@ const App = () => {
   };
 
   const validateForm = () => {
-    console.log(investmentDuration)
+    console.log(investmentDuration);
     if (
       initialInvestment === "" ||
       investmentDuration === "" ||
@@ -68,7 +67,8 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8 px-4">
       <Header />
-      <div className="flex justify-between max-w-screen-xl mx-auto mt-5">
+      <div className="flex justify-between max-w-screen mx-auto mt-5">
+        {/* "Add -xl after max-w-screen to make there be a space between the sides of the website" */}
         <div className="w-1/2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg mr-6">
           <form onSubmit={handleSubmit}>
             <InitialInvestmentInput onChange={handleInvestmentChange} />

@@ -3,5 +3,9 @@ button {
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #16a34a;
+}
+
+html.dark button:hover {
+  background-color: #1e293b;
 }
