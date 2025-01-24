@@ -28,13 +28,13 @@ def test_get_mutualfunds(app):
 #Checks getting beta
 @patch("app.services.external_api_service.get_beta_for_mutual_fund")
 def test_get_beta_success(mock_get_beta, app):
-    # mock_get_beta.return_value = 1.2
+    # mock_get_beta.return_value = -0.6530107924223588
 
     with app.test_client() as client:
-        response = client.get("/beta?ticker=VFIAX")
+        response = client.get("/beta?ticker=VSMPX")
         assert response.status_code == 200
-        assert response.json["ticker"] == "VFIAX"
-        # assert response.json["beta"] == 1.2
+        assert response.json["ticker"] == "VSMPX"
+        # assert response.json["beta"] == -0.6530107924223588
 
 #Check missing ticker when getting beta
 def test_get_beta_missing_ticker(app):
