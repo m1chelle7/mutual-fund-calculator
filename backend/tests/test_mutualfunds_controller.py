@@ -46,16 +46,16 @@ def test_get_beta_missing_ticker(app):
 
      
 #Check when beta is not found
-'''
+
 @patch("app.services.external_api_service.get_beta_for_mutual_fund")
 def test_get_beta_not_found(mock_get_beta, app):
     mock_get_beta.return_value = None
 
     with app.test_client() as client:
-        response  = client.get("/beta?ticker=AAPL")
+        response  = client.get("/beta?ticker=VSMPX")
         assert response.status_code == 404
         assert response.json == {"error": "Beta not found for ticker AAPL"}
-'''
+
 
 
 #Check getting market return rate
@@ -100,7 +100,7 @@ def test_future_value_calc_failure(mock_calculate, app):
 
 
 
-#Check for missing parameterse
+#Check for missing parameters
 def test_future_value_missing_params(app):
     with app.test_client() as client:
         response = client.post("/investment/future-value", json={})
