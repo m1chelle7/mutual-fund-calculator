@@ -53,7 +53,7 @@ const MutualFunds = ({ onSelectFund }) => {
       >
         Mutual Fund:
       </label>
-      <div className="relative inline-block text-left">
+      <div className="w-full relative inline-block text-left">
         <div>
           <button
             type="button"
@@ -102,16 +102,6 @@ const MutualFunds = ({ onSelectFund }) => {
           </div>
         )}
       </div>
-
-      {/* {selectedFund && (
-        <div className="mt-4 text-gray-700 dark:text-gray-300">
-          <h2 className="text-lg font-medium">Selected Fund:</h2>
-          <p>
-            {mutualFunds.find((fund) => fund.ticker === selectedFund)?.name}
-          </p>
-          <p>{selectedFund}</p>
-        </div>
-      )} */}
     </div>
   );
 };

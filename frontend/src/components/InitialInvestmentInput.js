@@ -5,11 +5,19 @@ const InitialInvestmentInput = ({ onChange }) => {
 
   const handleChange = (event) => {
     let inputValue = event.target.value;
-
     inputValue = inputValue.replace(/[^0-9.]/g, "");
+
+    if (inputValue) {
+      let numberValue = parseFloat(inputValue.replace(/,/g, ""));
+      if (!isNaN(numberValue)) {
+        inputValue = numberValue.toLocaleString();
+      }
+    }
+
     setValue(inputValue);
+
     if (inputValue !== "") {
-      onChange(Number(inputValue));
+      onChange(Number(inputValue.replace(/,/g, "")));
     }
   };
 
