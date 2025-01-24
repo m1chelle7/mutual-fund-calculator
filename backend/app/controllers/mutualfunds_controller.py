@@ -9,6 +9,7 @@ from app.services.future_value_service import (
 
 mutualfunds_api = Blueprint("mutualfunds_api", __name__)
 
+
 @mutualfunds_api.route("/mutual-funds", methods=["GET"])
 @cross_origin(origins="http://localhost:3000")
 def get_mutualfunds():

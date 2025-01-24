@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import Header from "./components/header/Header";
-import MutualFunds from "./components/MutualFundTicker";
-import InitialInvestmentInput from "./components/InitialInvestmentInput";
-import InvestmentDurationInput from "./components/InvestmentDurationInput";
-import CalculateButton from "./components/CalculateButton";
+import Header from "./components/Header/Header";
+import MutualFunds from "./components/LeftPanel/MutualFundTicker";
+import InitialInvestmentInput from "./components/LeftPanel/InitialInvestmentInput";
+import InvestmentDurationInput from "./components/LeftPanel/InvestmentDurationInput";
+import CalculateButton from "./components/LeftPanel/CalculateButton";
 import { getFutureValue } from "./services/future_value_api";
-import ResultSummary from "./components/ResultSummary";
+import ResultSummary from "./components/RightPanel/ResultSummary";
 import "./styles/App.css";
 
-// TODO: Add loading
 const App = () => {
   const [initialInvestment, setInitialInvestment] = useState("");
   const [investmentDuration, setInvestmentDuration] = useState("");
@@ -16,10 +15,11 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
   const [riskFreeRate, setRiskFreeRate] = useState(3);
-  const [mutualFundBeta, setMutualFundBeta] = useState(1.2); 
+  const [mutualFundBeta, setMutualFundBeta] = useState(1.2);
   const [earnings, setEarnings] = useState(0);
   const [totalBalance, setTotalBalance] = useState(0);
   const [showResult, setShowResult] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleInvestmentChange = (value) => {
     setInitialInvestment(value);
@@ -54,10 +54,14 @@ const App = () => {
       return;
     }
 
+    setLoading(true);
+
     const formattedData = {
       mutualFund: selectedFund,
-      initialInvestment: initialInvestment === "" ? 0 : Number(initialInvestment),
-      investmentDuration: investmentDuration === "" ? 0 : Number(investmentDuration),
+      initialInvestment:
+        initialInvestment === "" ? 0 : Number(initialInvestment),
+      investmentDuration:
+        investmentDuration === "" ? 0 : Number(investmentDuration),
     };
 
     try {
@@ -66,8 +70,8 @@ const App = () => {
       setEarnings(calculatedEarnings);
       setTotalBalance(result.future_value);
 
-      setRiskFreeRate(3); 
-      setMutualFundBeta(1.2); 
+      setRiskFreeRate(3);
+      setMutualFundBeta(1.2);
 
       if (calculatedEarnings < 0) {
         setResponseMessage("You lost money on this investment.");
@@ -80,12 +84,16 @@ const App = () => {
       setShowResult(true);
     } catch (error) {
       setResponseMessage(error.message);
-      setShowResult(false); 
+      setShowResult(false);
+    } finally {
+      setLoading(false);
     }
   };
 
   const formatEarnings = (earnings) => {
-    return earnings < 0 ? `-$${Math.abs(earnings).toFixed(2)}` : `$${earnings.toFixed(2)}`;
+    return earnings < 0
+      ? `-$${Math.abs(earnings).toFixed(2)}`
+      : `$${earnings.toFixed(2)}`;
   };
 
   const formatTotalBalance = (totalBalance) => {
@@ -111,31 +119,39 @@ const App = () => {
         </div>
 
         <div className="w-1/2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
-          {responseMessage && (
-            <div
-              className={`${
-                responseMessage.includes("lost")
-                  ? "bg-red-100 text-red-800"
-                  : responseMessage.includes("earned")
-                  ? "bg-green-100 text-green-800"
-                  : "bg-gray-100 text-gray-800"
-              } p-4 rounded-lg mb-4`}
-            >
-              <strong>{responseMessage}</strong>
+          {loading ? (
+            <div className="flex justify-center items-center h-full">
+              <div className="animate-spin rounded-full border-t-4 border-green-500 h-12 w-12"></div>
             </div>
-          )}
+          ) : (
+            <>
+              {responseMessage && (
+                <div
+                  className={`${
+                    responseMessage.includes("lost")
+                      ? "bg-red-100 text-red-800"
+                      : responseMessage.includes("earned")
+                      ? "bg-green-100 text-green-800"
+                      : "bg-gray-100 text-gray-800"
+                  } p-4 rounded-lg mb-4`}
+                >
+                  <strong>{responseMessage}</strong>
+                </div>
+              )}
 
-          {showResult && (
-            <ResultSummary
-              initialInvestment={parseFloat(initialInvestment)}
-              investmentDuration={parseInt(investmentDuration)}
-              riskFreeRate={riskFreeRate}
-              mutualFundBeta={mutualFundBeta}
-              earnings={earnings}
-              totalBalance={totalBalance}
-              formattedEarnings={formatEarnings(earnings)} 
-              formattedTotalBalance={formatTotalBalance(totalBalance)} 
-            />
+              {showResult && (
+                <ResultSummary
+                  initialInvestment={parseFloat(initialInvestment)}
+                  investmentDuration={parseInt(investmentDuration)}
+                  riskFreeRate={riskFreeRate}
+                  mutualFundBeta={mutualFundBeta}
+                  earnings={earnings}
+                  totalBalance={totalBalance}
+                  formattedEarnings={formatEarnings(earnings)}
+                  formattedTotalBalance={formatTotalBalance(totalBalance)}
+                />
+              )}
+            </>
           )}
         </div>
       </div>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { fetchMutualFunds } from "../services/mutual_funds_api"; 
+import { fetchMutualFunds } from "../../services/mutual_funds_api";
 
 const MutualFunds = ({ onSelectFund }) => {
   const [mutualFunds, setMutualFunds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedFund, setSelectedFund] = useState("");
-  const [isOpen, setIsOpen] = useState(false); 
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const getMutualFunds = async () => {
@@ -25,12 +25,12 @@ const MutualFunds = ({ onSelectFund }) => {
 
   const handleSelectFund = (fund) => {
     setSelectedFund(fund.ticker);
-    onSelectFund(fund.ticker); 
-    setIsOpen(false);  
+    onSelectFund(fund.ticker);
+    setIsOpen(false);
   };
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen); 
+    setIsOpen(!isOpen);
   };
 
   if (loading) {
@@ -57,16 +57,18 @@ const MutualFunds = ({ onSelectFund }) => {
         <div>
           <button
             type="button"
-            className="inline-flex w-full justify-between gap-x-1.5 rounded-md bg-white dark:bg-gray-700 text-sm font-semibold text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600"
+            className="pt-3 pb-3 text-[15.5px] pl-4 inline-flex w-full justify-between gap-x-1.5 rounded-md bg-white dark:bg-gray-700 text-sm text-gray-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600"
             onClick={toggleDropdown}
             aria-expanded={isOpen}
             aria-haspopup="true"
           >
             {selectedFund
               ? mutualFunds.find((fund) => fund.ticker === selectedFund)?.name
-              : "Select a Mutual Fund"}
+              : <div className="text-gray-500">Select a Mutual Fund</div>}
             <svg
-              className={`-mr-1 h-5 w-5 text-gray-400 dark:text-gray-500 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
+              className={`-mr-1 h-5 w-5 text-gray-400 dark:text-gray-500 transition-transform duration-200 ${
+                isOpen ? "rotate-180" : ""
+              }`}
               fill="currentColor"
               viewBox="0 0 20 20"
               aria-hidden="true"
@@ -82,7 +84,7 @@ const MutualFunds = ({ onSelectFund }) => {
 
         {isOpen && (
           <div
-            className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black/5 focus:outline-none"
+            className="w-full absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black/5 focus:outline-none"
             role="menu"
             aria-orientation="vertical"
             aria-labelledby="menu-button"

@@ -1,12 +1,12 @@
 import React from 'react';
 
-// TODO: Format commas for the reciept
 const formatAmount = (amount) => {
-  return `$${amount.toFixed(2)}`;
+  return `$${new Intl.NumberFormat().format(amount.toFixed(2))}`;
 };
 
 const formatEarnings = (earnings) => {
-  return earnings < 0 ? `-$${Math.abs(earnings).toFixed(2)}` : `$${earnings.toFixed(2)}`;
+  const formattedEarnings = new Intl.NumberFormat().format(Math.abs(earnings).toFixed(2));
+  return earnings < 0 ? `-$${formattedEarnings}` : `$${formattedEarnings}`;
 };
 
 const ResultSummary = ({
