@@ -23,7 +23,7 @@ def calculate_market_return_rate():
 
 def calculate_future_value(ticker, initial_investment, investment_time):
     beta = get_beta_for_mutual_fund(ticker)
-    if not beta:
+    if beta is None:
         return {"error": "Beta not found for the given mutual fund ticker"}
 
     market_return_rate = calculate_market_return_rate()
