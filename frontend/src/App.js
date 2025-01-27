@@ -5,6 +5,7 @@ import InitialInvestmentInput from "./components/LeftPanel/InitialInvestmentInpu
 import InvestmentDurationInput from "./components/LeftPanel/InvestmentDurationInput";
 import CalculateButton from "./components/LeftPanel/CalculateButton";
 import { getFutureValue } from "./services/future_value_api";
+import { getReturnRate } from "./services/return_rate_api"
 import ResultSummary from "./components/RightPanel/ResultSummary";
 import "./styles/App.css";
 
@@ -14,7 +15,7 @@ const App = () => {
   const [selectedFund, setSelectedFund] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
-  const [riskFreeRate, setRiskFreeRate] = useState(3);
+  const [riskFreeRate, setRiskFreeRate] = useState(0);
   const [mutualFundBeta, setMutualFundBeta] = useState(1.2);
   const [earnings, setEarnings] = useState(0);
   const [totalBalance, setTotalBalance] = useState(0);
@@ -55,6 +56,7 @@ const App = () => {
     }
 
     setLoading(true);
+    setShowResult(false);
 
     const formattedData = {
       mutualFund: selectedFund,
@@ -65,12 +67,13 @@ const App = () => {
     };
 
     try {
+      const riskFreeRate = await getReturnRate()
       const result = await getFutureValue(formattedData);
       const calculatedEarnings = result.future_value - initialInvestment;
       setEarnings(calculatedEarnings);
       setTotalBalance(result.future_value);
 
-      setRiskFreeRate(3);
+      setRiskFreeRate(riskFreeRate);
       setMutualFundBeta(1.2);
 
       if (calculatedEarnings < 0) {

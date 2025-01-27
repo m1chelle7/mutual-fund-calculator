@@ -62,9 +62,11 @@ const MutualFunds = ({ onSelectFund }) => {
             aria-expanded={isOpen}
             aria-haspopup="true"
           >
-            {selectedFund
-              ? mutualFunds.find((fund) => fund.ticker === selectedFund)?.name
-              : <div className="text-gray-500">Select a Mutual Fund</div>}
+            {selectedFund ? (
+              mutualFunds.find((fund) => fund.ticker === selectedFund)?.name
+            ) : (
+              <div className="text-gray-500">Select a Mutual Fund</div>
+            )}
             <svg
               className={`-mr-1 h-5 w-5 text-gray-400 dark:text-gray-500 transition-transform duration-200 ${
                 isOpen ? "rotate-180" : ""
