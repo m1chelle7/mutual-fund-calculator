@@ -116,7 +116,7 @@ const App = () => {
               <div className="text-red-600 text-sm mt-2">{errorMessage}</div>
             )}
             <div className="mt-10">
-              <CalculateButton />
+              <CalculateButton/>
             </div>
           </form>
         </div>
