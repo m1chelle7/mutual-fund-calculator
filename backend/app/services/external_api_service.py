@@ -1,13 +1,10 @@
 import requests
 from datetime import datetime
-
-NEWTON_ANALYTICS_URL = "https://api.newtonanalytics.com/stock-beta/?ticker={ticker}&index=^GSPC&interval=1mo&observations=12"
-SP500_API_URL = "https://api.stlouisfed.org/fred/series/observations?series_id=SP500&api_key=d26079fc190512773ac705629a92f8ea&file_type=json"
-
+from app.config.config import Config
 
 def get_beta_for_mutual_fund(ticker):
     try:
-        url = NEWTON_ANALYTICS_URL.format(ticker=ticker)
+        url = Config.NEWTON_ANALYTICS_URL.format(ticker=ticker)
         response = requests.get(url)
 
         if response.status_code == 200:
@@ -30,7 +27,7 @@ def get_beta_for_mutual_fund(ticker):
 
 def get_sp500_historical_data():
     try:
-        response = requests.get(SP500_API_URL)
+        response = requests.get(Config.SP500_API_URL)
         data = response.json()
 
         if response.status_code == 200 and "observations" in data:
