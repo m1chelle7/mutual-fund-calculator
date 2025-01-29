@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Header from "./components/Header/Header";
+import Header from "./components/header/Header";
 import MutualFunds from "./components/LeftPanel/MutualFundTicker";
 import InitialInvestmentInput from "./components/LeftPanel/InitialInvestmentInput";
 import InvestmentDurationInput from "./components/LeftPanel/InvestmentDurationInput";
@@ -10,8 +10,10 @@ import ResultSummary from "./components/RightPanel/ResultSummary";
 import "./styles/App.css";
 
 const App = () => {
-  const [initialInvestment, setInitialInvestment] = useState("");
-  const [investmentDuration, setInvestmentDuration] = useState("");
+  const [initialInvestment, setInitialInvestment] = useState(0);
+  const [investmentDuration, setInvestmentDuration] = useState(0);
+  const [CalculatedInitialInvestment, setCalculatedInitialInvestment] = useState(0);
+  const [CalculatedInvestmentDuration, setCalculatedInvestmentDuration] = useState(0);
   const [selectedFund, setSelectedFund] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
@@ -35,11 +37,7 @@ const App = () => {
   };
 
   const validateForm = () => {
-    if (
-      initialInvestment === "" ||
-      investmentDuration === "" ||
-      selectedFund === ""
-    ) {
+    if (!initialInvestment || !investmentDuration || !selectedFund) {
       setErrorMessage("Please fill in all required fields.");
       return false;
     }
@@ -70,6 +68,8 @@ const App = () => {
       const riskFreeRate = await getReturnRate()
       const result = await getFutureValue(formattedData);
       const calculatedEarnings = result.future_value - initialInvestment;
+      setCalculatedInitialInvestment(initialInvestment);
+      setCalculatedInvestmentDuration(investmentDuration);
       setEarnings(calculatedEarnings);
       setTotalBalance(result.future_value);
 
@@ -108,7 +108,7 @@ const App = () => {
       <Header />
       <div className="flex justify-between max-w-screen mx-auto mt-5">
         <div className="w-1/2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg mr-6">
-          <form onSubmit={handleSubmit}>
+          <form>
             <InitialInvestmentInput onChange={handleInvestmentChange} />
             <InvestmentDurationInput onChange={handleDurationChange} />
             <MutualFunds onSelectFund={handleFundSelectionChange} />
@@ -116,7 +116,7 @@ const App = () => {
               <div className="text-red-600 text-sm mt-2">{errorMessage}</div>
             )}
             <div className="mt-10">
-              <CalculateButton/>
+              <CalculateButton handleSubmit={handleSubmit} />
             </div>
           </form>
         </div>
@@ -144,8 +144,8 @@ const App = () => {
 
               {showResult && (
                 <ResultSummary
-                  initialInvestment={parseFloat(initialInvestment)}
-                  investmentDuration={parseInt(investmentDuration)}
+                  initialInvestment={parseFloat(CalculatedInitialInvestment)}
+                  investmentDuration={parseInt(CalculatedInvestmentDuration)}
                   riskFreeRate={riskFreeRate}
                   mutualFundBeta={mutualFundBeta}
                   earnings={earnings}
