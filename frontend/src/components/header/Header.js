@@ -20,9 +20,9 @@ const Header = () => {
         <span className="font-semibold text-lg">Goldman Sachs ELS</span>
       </div>
 
-      <h1 className="text-2xl font-semibold flex-grow text-center">
+      {/* <h1 className="text-2xl font-semibold flex-grow text-center">
         Mutual Fund Calculator
-      </h1>
+      </h1> */}
 
       <button
         onClick={toggleDarkMode}

@@ -9,3 +9,15 @@ button:hover {
 html.dark button:hover {
   background-color: #1e293b;
 }
+.backgroundImage {
+  background-image: url("../asset/Header.png");
+  height: 50vh;
+  color: #fff;
+}
+.backgroundImage h2 {
+    font-size: 5rem;
+}
+.backgroundImage p {
+  font-size: 1.5rem;
+  font-family: serif;
+} 

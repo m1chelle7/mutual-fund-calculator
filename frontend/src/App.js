@@ -107,7 +107,12 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8 px-4">
       <Header />
-      <img src={Image} alt="background" className="backgrounDesign"/>
+      <div className="relative bg-cover bg-center h-64 flex flex-col items-center justify-center text-white font-bold shadow-lg backgroundImage" >
+        <div className="absolute inset-0 bg-gray-800 opacity-50"></div>
+        <h2 className="px-4 py-2 rounded-lg z-10">Mutual Fund Calculator</h2>
+        <p className="text-lg z-10">Predict your investment's future value in seconds.</p>
+      </div>
+
       <div className="flex justify-between max-w-screen mx-auto mt-5">
         <div className="w-1/2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg mr-6">
           <form>
