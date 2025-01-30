@@ -19,7 +19,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
   const [riskFreeRate, setRiskFreeRate] = useState(0);
-  const [mutualFundBeta, setMutualFundBeta] = useState(1.2);
+  const [mutualFundBeta, setMutualFundBeta] = useState();
   const [earnings, setEarnings] = useState(0);
   const [totalBalance, setTotalBalance] = useState(0);
   const [showResult, setShowResult] = useState(false);
