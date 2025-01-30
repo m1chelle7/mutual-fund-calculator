@@ -8,6 +8,7 @@ import { getFutureValue } from "./services/future_value_api";
 import { getReturnRate } from "./services/return_rate_api"
 import ResultSummary from "./components/RightPanel/ResultSummary";
 import "./styles/App.css";
+import Image from "./asset/Header.png";
 
 const App = () => {
   const [initialInvestment, setInitialInvestment] = useState(0);
@@ -106,6 +107,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 py-8 px-4">
       <Header />
+      <img src={Image} alt="background" className="backgrounDesign"/>
       <div className="flex justify-between max-w-screen mx-auto mt-5">
         <div className="w-1/2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg mr-6">
           <form>
